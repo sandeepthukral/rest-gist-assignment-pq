@@ -1,6 +1,6 @@
 package qa.sandeep;
 
-import io.qameta.allure.restassured.AllureRestAssured;
+//import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -16,6 +16,8 @@ import java.util.Properties;
 import static io.restassured.RestAssured.given;
 
 public class GistClient {
+
+    private String BASE_URL = "https://api.github.com";
 
     // The token for the authenticated user for testing
     private String token;
@@ -40,7 +42,7 @@ public class GistClient {
     public RequestSpecification getUnauthenticatedSpec(){
         return new RequestSpecBuilder()
                 .setContentType(ContentType.JSON)
-                .setBaseUri("https://api.github.com")
+                .setBaseUri(BASE_URL)
                 .addFilter(new ResponseLoggingFilter()) // for debugging
                 .addFilter(new RequestLoggingFilter()) // for debugging
                 .build();
@@ -51,14 +53,29 @@ public class GistClient {
         return spec.header("Authorization", "Bearer " + this.token);
     }
 
-    public void createGist(String gistJson) {
-        given()
+    /**
+     * Create a Gist
+     * @param gistJson String representation of a gist JSON
+     */
+    public String createGist(String gistJson) {
+        return given()
                 .spec(this.getAuthenticatedSpec())
-                .filter(new AllureRestAssured())
+//                .filter(new AllureRestAssured())
                 .body(gistJson)
                 .post("/gists")
                 .then()
-                .statusCode(201);
+                .statusCode(201)
+                .extract().path("id");
+    }
+
+    public void updateGist(String id, String gistJson) {
+        given()
+                .spec(this.getAuthenticatedSpec())
+//                .filter(new AllureRestAssured())
+                .body(gistJson)
+                .patch("/gists/" + id)
+                .then()
+                .statusCode(200);
     }
 
     /**
@@ -83,7 +100,7 @@ public class GistClient {
         List<String> gists =
                 given()
                     .spec(this.getUnauthenticatedSpec())
-                    .filter(new AllureRestAssured())
+//                    .filter(new AllureRestAssured())
                     .header("Authorization", "Bearer " + this.token)
                     .get("gists")
                     .then()

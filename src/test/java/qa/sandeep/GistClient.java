@@ -1,5 +1,6 @@
 package qa.sandeep;
 
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -50,6 +51,16 @@ public class GistClient {
         return spec.header("Authorization", "Bearer " + this.token);
     }
 
+    public void createGist(String gistJson) {
+        given()
+                .spec(this.getAuthenticatedSpec())
+                .filter(new AllureRestAssured())
+                .body(gistJson)
+                .post("/gists")
+                .then()
+                .statusCode(201);
+    }
+
     /**
      * Deletes a gist given its ID
      * Expects the authenticated user to be the owner of the gist
@@ -72,6 +83,7 @@ public class GistClient {
         List<String> gists =
                 given()
                     .spec(this.getUnauthenticatedSpec())
+                    .filter(new AllureRestAssured())
                     .header("Authorization", "Bearer " + this.token)
                     .get("gists")
                     .then()

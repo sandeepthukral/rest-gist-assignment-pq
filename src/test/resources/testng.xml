@@ -4,7 +4,7 @@
 <suite name="All tests">
     <test name="all tests">
         <packages>
-            <package name="qa.sandeep"></package>
+            <package name="qa.sandeep.*"></package>
         </packages>
     </test>
 </suite>

@@ -25,20 +25,18 @@ public class GistClient {
 
     private String getToken() {
         Properties prop = new Properties();
-        FileInputStream fis = null;
+        FileInputStream fis;
         try {
             fis = new FileInputStream("src/test/resources/credentials.properties");
             prop.load(fis);
             return prop.getProperty("token");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return "";
     }
 
-    private RequestSpecification getUnauthenticatedSpec(){
+    public RequestSpecification getUnauthenticatedSpec(){
         return new RequestSpecBuilder()
                 .setContentType(ContentType.JSON)
                 .setBaseUri("https://api.github.com")
@@ -47,7 +45,7 @@ public class GistClient {
                 .build();
     }
 
-    private RequestSpecification getAuthenticatedSpec(){
+    public RequestSpecification getAuthenticatedSpec(){
         RequestSpecification spec = this.getUnauthenticatedSpec();
         return spec.header("Authorization", "Bearer " + this.token);
     }

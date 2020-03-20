@@ -24,6 +24,7 @@ repositories {
 dependencies {
     testImplementation 'org.testng:testng:7.0.0'
     testImplementation 'io.rest-assured:rest-assured:4.2.0'
+    compile 'io.rest-assured:rest-assured:4.2.0'
 }
 
 allure {

@@ -2,12 +2,12 @@ package qa.sandeep.tests;
 
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
-//import io.qameta.allure.restassured.AllureRestAssured;
+import io.restassured.response.Response;
 import org.hamcrest.Matchers;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static io.restassured.RestAssured.given;
+//import io.qameta.allure.restassured.AllureRestAssured;
 
 public class GistCreateTest extends BaseTest {
 
@@ -21,33 +21,27 @@ public class GistCreateTest extends BaseTest {
     @Feature("Create a Gist")
     @Description("Create a random public Gist")
     public void testCreateRandomPublicGist() {
-        String gist = this.utils.getRandomGist(true);
+        String gist = this.utils.getRandomGist(true).toString();
         String id = this.gistClient.createGist(gist);
-        given()
-                .spec(this.gistClient.getAuthenticatedSpec())
-//                .filter(new AllureRestAssured())
-                .when()
-                .get("/gists")
+        Response response = this.gistClient.getGistsForAuthenticateTestUser();
+        response
                 .then()
                 .statusCode(200)
                 .body("", Matchers.hasSize(1))
-                .body("owner.login", Matchers.contains("errorlogsblog"));
+                .body("id", Matchers.contains(id));
     }
 
     @Test(description = "Create a random public Gist with multiple files")
     @Feature("Create a Gist")
     @Description("Create a random public Gist with multiple files")
     public void testCreateRandomPublicGistWithMultipleFiles() {
-        String gist = this.utils.getRandomGistWithMultipleFiles(true);
+        String gist = this.utils.getRandomGistWithMultipleFiles(true).toString();
         String id = this.gistClient.createGist(gist);
-        given()
-                .spec(this.gistClient.getAuthenticatedSpec())
-//                .filter(new AllureRestAssured())
-                .when()
-                .get("/gists")
+        Response response = this.gistClient.getGistsForAuthenticateTestUser();
+        response
                 .then()
                 .statusCode(200)
                 .body("", Matchers.hasSize(1))
-                .body("owner.login", Matchers.contains("errorlogsblog"));
+                .body("id", Matchers.contains(id));
     }
 }

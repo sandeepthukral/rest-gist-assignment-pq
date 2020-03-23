@@ -16,10 +16,6 @@ public class GistFileDTO {
         return this;
     }
 
-    public String getContent() {
-        return content;
-    }
-
     public GistFileDTO setContent(String content) {
         this.content = content;
         return this;
@@ -27,10 +23,7 @@ public class GistFileDTO {
 
     public JsonObjectBuilder getJsonObject() {
 
-        JsonObjectBuilder content = Json.createObjectBuilder()
-                .add("content", this.content);
-        String result = content.toString();
-        return content;
+        return Json.createObjectBuilder().add("content", this.content);
     }
 
 }

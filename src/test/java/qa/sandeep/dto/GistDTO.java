@@ -9,11 +9,7 @@ public class GistDTO {
 
     private String description;
     private boolean isPublic;
-    private Vector<GistFileDTO> gistFiles = new Vector<GistFileDTO>();
-
-    public String getDescription() {
-        return description;
-    }
+    private Vector<GistFileDTO> gistFiles = new Vector<>();
 
     public GistDTO setDescription(String description) {
         this.description = description;
@@ -41,8 +37,7 @@ public class GistDTO {
                 .add("files", gistFilesBuilder.build())
                 .build();
 
-        String gistString = gist.toString();
-        return gistString;
+        return gist.toString();
     }
 
     public GistDTO addGistFile(GistFileDTO gistFile) {

@@ -18,7 +18,12 @@ public class RandomUtils {
         return RandomStringUtils.randomAlphanumeric(50);
     }
 
-    public String getRandomGist(boolean isPublic){
+    /**
+     * Returns a GistDTO object with one random file with random content
+     * @param isPublic
+     * @return
+     */
+    public GistDTO getRandomGist(boolean isPublic){
         GistDTO gist = new GistDTO();
         GistFileDTO file = new GistFileDTO()
                 .setName(getFileName())
@@ -26,11 +31,15 @@ public class RandomUtils {
         return gist
                 .setDescription(getDescription())
                 .setPublic(isPublic)
-                .addGistFile(file)
-                .toString();
+                .addGistFile(file);
     }
 
-    public String getRandomGistWithMultipleFiles(boolean isPublic){
+    /**
+     * Returns a GistDTO object with two random files with random content
+     * @param isPublic
+     * @return
+     */
+    public GistDTO getRandomGistWithMultipleFiles(boolean isPublic){
         GistDTO gist = new GistDTO();
         GistFileDTO file1 = new GistFileDTO()
                 .setName(getFileName())
@@ -42,7 +51,6 @@ public class RandomUtils {
                 .setDescription(getDescription())
                 .setPublic(isPublic)
                 .addGistFile(file1)
-                .addGistFile(file2)
-                .toString();
+                .addGistFile(file2);
     }
 }

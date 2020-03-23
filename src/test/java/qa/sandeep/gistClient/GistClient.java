@@ -1,7 +1,5 @@
 package qa.sandeep.gistClient;
 
-//import io.qameta.allure.restassured.AllureRestAssured;
-
 import io.qameta.allure.Step;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
@@ -62,7 +60,6 @@ public class GistClient {
     public String createGist(String gistJson) {
         return given()
                 .spec(this.getAuthenticatedSpec())
-//                .filter(new AllureRestAssured())
                 .body(gistJson)
                 .post("/gists")
                 .then()
@@ -74,7 +71,6 @@ public class GistClient {
     public void updateGist(String id, String gistJson) {
         given()
                 .spec(this.getAuthenticatedSpec())
-//                .filter(new AllureRestAssured())
                 .body(gistJson)
                 .patch("/gists/" + id)
                 .then()
@@ -89,7 +85,7 @@ public class GistClient {
     @Step("Delete gist with id {id}")
     public void deleteGist(String id) {
         given()
-            .spec(this.getAuthenticatedSpec())
+                .spec(this.getAuthenticatedSpec())
                 .delete("/gists/" + id)
                 .then()
                 .statusCode(204);
@@ -105,7 +101,6 @@ public class GistClient {
         List<String> gists =
                 given()
                     .spec(this.getUnauthenticatedSpec())
-//                    .filter(new AllureRestAssured())
                     .header("Authorization", "Bearer " + this.token)
                     .get("gists")
                     .then()
@@ -120,7 +115,6 @@ public class GistClient {
     public Response getGistsForAuthenticateTestUser() {
         return given()
                 .spec(this.getUnauthenticatedSpec())
-//                    .filter(new AllureRestAssured())
                 .header("Authorization", "Bearer " + this.token)
                 .get("gists");
     }
@@ -129,7 +123,6 @@ public class GistClient {
     public Response getGistCommits(String id) {
         return given()
                 .spec(this.getAuthenticatedSpec())
-//                .filter(new AllureRestAssured())
                 .when()
                 .get("/gists/"+id+"/commits");
     }
@@ -138,7 +131,6 @@ public class GistClient {
     public Response getPublicGistsOfUserAsUnauthenticatedUser(String user) {
         return given()
                 .spec(this.getUnauthenticatedSpec())
-//                .filter(new AllureRestAssured())
                 .when()
                 .get("/users/" + user + "/gists");
     }

@@ -12,7 +12,7 @@ public class GistDeleteTest extends BaseTest{
     @BeforeMethod(description = "Delete all gists for the test user before test")
     @Description("Delete all gists for the test user before test")
     public void beforeTest() {
-        this.gistClient.deleteAllGists();
+        this.gistApiClient.deleteAllGists();
     }
 
     @Test
@@ -20,12 +20,12 @@ public class GistDeleteTest extends BaseTest{
     @Description("Delete a Gist")
     public void testDeleteGist(){
         String gist = this.utils.getRandomGistWithMultipleFiles(true).toString();
-        String id = this.gistClient.createGist(gist);
+        String id = this.gistApiClient.createGist(gist);
         // delete Gist
-        this.gistClient.deleteGist(id);
+        this.gistApiClient.deleteGist(id);
 
         // check that there are no gists
-        Response response = this.gistClient.getGistsForAuthenticateTestUser();
+        Response response = this.gistApiClient.getGistsForAuthenticateTestUser();
         response
                 .then()
                 .statusCode(200)

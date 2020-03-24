@@ -1,6 +1,6 @@
 package qa.sandeep.tests;
 
-import qa.sandeep.gistClient.GistClient;
+import qa.sandeep.gistClient.GistApiClient;
 import qa.sandeep.utils.RandomUtils;
 
 import java.io.FileInputStream;
@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class BaseTest {
-    GistClient gistClient = new GistClient();
+    GistApiClient gistApiClient = new GistApiClient();
     RandomUtils utils = new RandomUtils();
     Properties testData = new Properties();
 

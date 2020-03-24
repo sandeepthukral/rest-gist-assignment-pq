@@ -15,7 +15,7 @@ public class GistEditTest extends BaseTest {
     @BeforeMethod(description = "Delete all gists for the test user before test")
     @Description("Delete all gists for the test user before test")
     public void beforeTest() {
-        this.gistClient.deleteAllGists();
+        this.gistApiClient.deleteAllGists();
     }
 
     @Test
@@ -23,10 +23,10 @@ public class GistEditTest extends BaseTest {
     @Description("Edit a Gist adding a new file")
     public void editGist(){
         String gist = this.utils.getRandomGistWithMultipleFiles(true).toString();
-        String id = this.gistClient.createGist(gist);
+        String id = this.gistApiClient.createGist(gist);
         String updatedGist = this.utils.getRandomGist(true).toString();
-        this.gistClient.updateGist(id, updatedGist);
-        Response response = this.gistClient.getGistsForAuthenticateTestUser();
+        this.gistApiClient.updateGist(id, updatedGist);
+        Response response = this.gistApiClient.getGistsForAuthenticateTestUser();
         response
                 .then()
                 .statusCode(200)

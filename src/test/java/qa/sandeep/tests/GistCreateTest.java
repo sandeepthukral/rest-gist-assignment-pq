@@ -14,7 +14,7 @@ public class GistCreateTest extends BaseTest {
     @BeforeMethod(description = "Delete all gists for the test user before test")
     @Description("Delete all gists for the test user before test")
     public void beforeTest() {
-        this.gistClient.deleteAllGists();
+        this.gistApiClient.deleteAllGists();
     }
 
     @Test(description = "Create a random public Gist")
@@ -22,8 +22,8 @@ public class GistCreateTest extends BaseTest {
     @Description("Create a random public Gist")
     public void testCreateRandomPublicGist() {
         String gist = this.utils.getRandomGist(true).toString();
-        String id = this.gistClient.createGist(gist);
-        Response response = this.gistClient.getGistsForAuthenticateTestUser();
+        String id = this.gistApiClient.createGist(gist);
+        Response response = this.gistApiClient.getGistsForAuthenticateTestUser();
         response
                 .then()
                 .statusCode(200)
@@ -36,8 +36,8 @@ public class GistCreateTest extends BaseTest {
     @Description("Create a random public Gist with multiple files")
     public void testCreateRandomPublicGistWithMultipleFiles() {
         String gist = this.utils.getRandomGistWithMultipleFiles(true).toString();
-        String id = this.gistClient.createGist(gist);
-        Response response = this.gistClient.getGistsForAuthenticateTestUser();
+        String id = this.gistApiClient.createGist(gist);
+        Response response = this.gistApiClient.getGistsForAuthenticateTestUser();
         response
                 .then()
                 .statusCode(200)

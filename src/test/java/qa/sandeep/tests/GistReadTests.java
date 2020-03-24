@@ -14,7 +14,7 @@ public class GistReadTests extends BaseTest{
     @BeforeMethod()
     @Description("Delete all gists for the test user before test")
     public void beforeTest() {
-        this.gistClient.deleteAllGists();
+        this.gistApiClient.deleteAllGists();
     }
 
 
@@ -22,7 +22,7 @@ public class GistReadTests extends BaseTest{
     @Feature("Read Gists")
     @Description("Get an empty list of Gists")
     public void testGetEmptyListOfGists() {
-        Response response = this.gistClient.getGistsForAuthenticateTestUser();
+        Response response = this.gistApiClient.getGistsForAuthenticateTestUser();
         response
                 .then()
                 .statusCode(200)

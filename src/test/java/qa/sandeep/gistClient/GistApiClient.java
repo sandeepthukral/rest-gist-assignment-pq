@@ -15,12 +15,12 @@ import java.util.Properties;
 
 import static io.restassured.RestAssured.given;
 
-public class GistClient {
+public class GistApiClient {
 
     // The token for the authenticated user for testing
     private String token;
 
-    public GistClient() {
+    public GistApiClient() {
         this.token = getToken();
     }
 

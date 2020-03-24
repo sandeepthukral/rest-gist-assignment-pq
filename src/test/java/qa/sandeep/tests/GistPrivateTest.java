@@ -12,7 +12,7 @@ public class GistPrivateTest extends BaseTest {
     @BeforeMethod(description = "Delete all gists for the test user before test")
     @Description("Delete all gists for the test user before test")
     public void beforeTest() {
-        this.gistClient.deleteAllGists();
+        this.gistApiClient.deleteAllGists();
     }
 
     @Test
@@ -20,10 +20,10 @@ public class GistPrivateTest extends BaseTest {
     @Description("A private Gist should not show in list of gists of the user")
     public void testPrivateGistNotVisibleToOthers(){
         String gist = this.utils.getRandomGist(false).toString();
-        this.gistClient.createGist(gist);
+        this.gistApiClient.createGist(gist);
 
         // check for the list of all gists of this user as an unauthenticated user
-        Response response = this.gistClient.getPublicGistsOfUserAsUnauthenticatedUser(
+        Response response = this.gistApiClient.getPublicGistsOfUserAsUnauthenticatedUser(
                 this.testData.getProperty("username"));
         response
                 .then()
@@ -36,10 +36,10 @@ public class GistPrivateTest extends BaseTest {
     @Description("A private Gist should be visible to the owner of the gist")
     public void testPrivateGistVisibleToOwner(){
         String gist = this.utils.getRandomGist(false).toString();
-        String id = this.gistClient.createGist(gist);
+        String id = this.gistApiClient.createGist(gist);
 
         // check for the list of all gists of this user authenticated as the user itself
-        Response response = this.gistClient.getGistsForAuthenticateTestUser();
+        Response response = this.gistApiClient.getGistsForAuthenticateTestUser();
         response
                 .then()
                 .statusCode(200)

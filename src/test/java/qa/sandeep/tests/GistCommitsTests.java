@@ -27,7 +27,8 @@ public class GistCommitsTests extends BaseTest {
                 .then()
                 .statusCode(200)
                  // verify that there is one commit
-                .body("", Matchers.hasSize(1));
+                .body("", Matchers.hasSize(1))
+                .body("", Matchers.hasSize(2));
     }
 
 
